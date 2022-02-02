@@ -1,7 +1,6 @@
 # HH-React-Native-Practices
 
-Haaga-Helia Native React Practice Tasks
+Haaga-Helia  - React Native Practice Tasks
 
-React Native tasks
 
 
