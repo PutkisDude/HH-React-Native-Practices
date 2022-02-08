@@ -1,19 +1,18 @@
 import { React } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 
-export default function History( {route, navigation} ) {
+export default function History( {route} ) {
 
     return(
-        <FlatList
-            style={{paddingTop:30}}
-            alignItems='center'
-            data={route.params}
-            renderItem={({item}) => <Text>{item}</Text>}
-            keyExtractor={(item, index) => index}
-        />
-
-
-
+        <View style={{alignItems:'center', paddingTop:20}}>
+            <Text style={{fontSize: 20, color:'grey'}}>History</Text>
+            <FlatList
+               style={{paddingTop:15}}
+               alignItems='center'
+             data={route.params}
+             renderItem={({item}) => <Text style={{fontSize:15}}>{item}</Text>}
+             keyExtractor={(item, index) => index}
+         />
+        </View>
     )
 }

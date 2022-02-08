@@ -38,7 +38,7 @@ export default function Calc({navigation}) {
       <View style={{flexDirection: 'row'}}>
         <Button title="+" onPress={() => calc('+')}/>
         <Button color="red" title="-" onPress={() => calc('-')} />
-        <Button title="History" onPress={() => navigation.navigate('History', history, setHistory)} />      
+        <Button title="History" onPress={() => navigation.navigate('History', history)} />      
     </View>
       
     </View>
