@@ -1,5 +1,5 @@
 import { StyleSheet, TextInput, Button, View } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import { MAP_SECRET } from '@env'
 import { useState } from 'react';
 
@@ -12,14 +12,17 @@ export default function App() {
     latitude: 0
   })
 
-  const fetchAddress = () => {
-    let settings = `thumbMaps=false&key=${MAP_SECRET}&outFormat=json`
 
-    fetch(`http://www.mapquestapi.com/geocoding/v1/address?${settings}&location=${address}`)
+  const fetchAddress = () => {
+    // Remove empty spaces, without example "ratapihantie 13" takes to Canada instead Pasila
+    // Still ignores when multiple results
+    const location = address.replace(/ /g, '')
+    let settings = `thumbMaps=false&key=${MAP_SECRET}&outFormat=json`
+    fetch(`http://www.mapquestapi.com/geocoding/v1/address?${settings}&location=${location}`)
     .then(res => res.json())
     .then(data => setCoords({
-      "latitude" : data.results[0].locations[0].latLng.lat,
-      "longitude" : data.results[0].locations[0].latLng.lng
+      "latitude" : data.results[0].locations[0].latLng.lat, 
+      "longitude" : data.results[0].locations[0].latLng.lng  
     }))
     .catch(e => console.log(e))
   }
@@ -32,7 +35,7 @@ export default function App() {
         region={{
           latitude: coords.latitude,
           longitude: coords.longitude,
-          latitudeDelta: 0.0322,
+          latitudeDelta: 0.0122,
           longitudeDelta: 0.0221
         }}
       >
@@ -47,7 +50,7 @@ export default function App() {
 
       <View style={{
         width: '100%',
-        position: 'absolute',
+        position: 'absolute', // Input field goes on the map
         top: 10, 
         flexDirection: 'row',
         justifyContent: 'center'
@@ -60,7 +63,7 @@ export default function App() {
             borderColor: 'grey',
             borderRadius: 10,
             fontSize: 18,
-            backgroundColor: 'rgba(255,255,255,0.5)'
+            backgroundColor: 'rgba(255,255,255,0.5)' // 50% transparent input field
           }}
           onChangeText={text => setAddress(text)} 
           placeholder="Search"
